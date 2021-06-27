@@ -1,14 +1,20 @@
 package com.api.todo.todotask.resources;
 
 import com.api.todo.todotask.exceptions.TodosNotFoundException;
+import com.api.todo.todotask.models.Tasks;
 import com.api.todo.todotask.models.Todos;
+import com.api.todo.todotask.repositories.TaskRepository;
 import com.api.todo.todotask.repositories.TodoRepository;
+import com.api.todo.todotask.services.TodoService;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class TodoController {
@@ -16,17 +22,24 @@ public class TodoController {
     @Autowired
     TodoRepository todoRepository;
 
+    @Autowired
+    TaskRepository taskRepository;
+
     //Get All Tasks
     @GetMapping
-    public List<Todos> getAllitems(){
+    public Iterable<Todos> getAllitems(){
         return todoRepository.findAll();
     }
 
     //create a new to-do-item
     @PostMapping("/todos")
-    @Transactional
     public Todos createTodoItem(@RequestBody Todos todos){
-        return todoRepository.save(todos);
+        if(null != todos.getTasks()) {
+            return todoRepository.save(todos);
+        }
+        else{
+            return null;
+        }
     }
 
     //Get details of a single to-do item by Id
@@ -49,9 +62,7 @@ public class TodoController {
         todos.setDescription(todoDetails.getDescription());
         todos.setTasks(todoDetails.getTasks());
 
-        Todos updatedTodos = todoRepository.save(todos);
-
-        return updatedTodos;
+        return todoRepository.save(todos);
     }
 
     //Delete a to-do item by Id

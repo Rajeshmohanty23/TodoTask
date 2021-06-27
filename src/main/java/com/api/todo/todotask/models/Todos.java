@@ -1,18 +1,19 @@
 package com.api.todo.todotask.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
+import lombok.*;
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
-@Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "todos")
-public class Todos {
+@Entity
+public class Todos implements Serializable {
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,16 +26,7 @@ public class Todos {
         @Column(name = "description")
         private String description;
 
-        @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
+        @OneToMany(targetEntity = Tasks.class,cascade = CascadeType.ALL)
+        @JoinColumn(name = "todo_task_fk", referencedColumnName = "todo_item_id")
         private List<Tasks> tasks;
-
-        public Todos() {
-        }
-
-        @Override
-        public String toString() {
-            return "Todos [id=" + id + ", name=" + name + ", desc=" + description + ", published=" + tasks + "]";
-        }
-
-
 }
