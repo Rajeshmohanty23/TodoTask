@@ -1,13 +1,19 @@
 package com.api.todo.todotask.models;
 
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
+@Data
+@Getter
+@Setter
 @AllArgsConstructor
-@Entity
+@NoArgsConstructor
+@ToString
 @Table(name = "tasks")
-public class Tasks {
+@Entity
+public class Tasks implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +25,4 @@ public class Tasks {
 
     @Column(name= "task_desc")
     private String description;
-
-    public Tasks(){};
-
 }
