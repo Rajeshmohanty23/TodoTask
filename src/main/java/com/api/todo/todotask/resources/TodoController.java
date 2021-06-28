@@ -19,7 +19,7 @@ public class TodoController {
     TaskRepository taskRepository;
 
     //Get All Tasks
-    @GetMapping
+    @GetMapping("/todos")
     public Iterable<Todos> getAllitems(){
         return todoRepository.findAll();
     }
