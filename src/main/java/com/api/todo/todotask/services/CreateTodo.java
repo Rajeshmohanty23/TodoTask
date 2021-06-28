@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @ToString
 @Component
-public class TodoService {
-
+public class CreateTodo {
     private Todos todos;
 }
