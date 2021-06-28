@@ -2,7 +2,7 @@
 [todo-task-api]
 A Todo contains an arbitrary list of subtasks and is structured as follows:
 
- 
+---
 {
     id [mandatory]
     name [mandatory]
@@ -15,7 +15,7 @@ A Todo contains an arbitrary list of subtasks and is structured as follows:
         }
     ]
 }
-
+---
 
 # Getting Started
 
