@@ -15,11 +15,6 @@ import java.util.List;
 @RestController
 public class TodoController {
 
-    @Autowired
-    TodoRepository todoRepository;
-
-    @Autowired
-    TaskRepository taskRepository;
 
     @Autowired
     TodoService todoService;
